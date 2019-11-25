@@ -7,17 +7,14 @@ It can be used in controllers but also any other services if needed. While this 
 1. Download damirius/rate-limiter using composer
 2. Enable the Bundle
 
-## Step 1: Download damirius/rate-limiter using composer
+### Step 1: Download damirius/rate-limiter using composer
 
 Require the bundle with composer inside your symfony project:
-
-.. code-block:: bash
-
-    $ composer require damirius/rate-limiter "~1.0"
+```$ composer require damirius/rate-limiter "~1.0"```
 
 Composer will install the bundle to your project's ``vendor/damirius/rate-limiter`` directory.
 
-## Step 2: Enable the bundle
+### Step 2: Enable the bundle
 
 Enable the bundle in the `config/bundles.php`
 ``` php
