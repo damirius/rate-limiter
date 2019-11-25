@@ -77,16 +77,16 @@ If that number is 0 it means that this client hit the rate limit, consumer can t
 
 There are couple more publicly exposed methods which can help managing rate limits.
 
-`RateLimiterer::getResetTime($identifier)` will get time in seconds till the rate limit resets for specific client identifier.
+`RateLimiter::getResetTime($identifier)` will get time in seconds till the rate limit resets for specific client identifier.
 
-`RateLimiterer::reset($identifier)` will reset any usage for specific client identifier.
+`RateLimiter::reset($identifier)` will reset any usage for specific client identifier.
 
 # Algorithm
 This bundle uses Token Bucket algorithm. It's enough to say that it's simple enough that we can store two values per client for limiting their requests.
 One thing that we save is time of last request and other is `allowance` which indirectly represent number of tries left.
 
 # Storage
-Storage options can be introduced by implementing `Storage\RateLimitStorageInterface`.
+Storage options can be introduced by implementing `Storage\RateLimiterStorageInterface`.
 Storage should be quick and simple since only thing we need to store are key->value pairs.
 
 # References
