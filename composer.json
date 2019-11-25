@@ -1,13 +1,13 @@
 {
   "name": "damirius/rate-limiter",
-  "description": "Rate limiter based on the token bucket algorithm.",
+  "description": "Rate limiter Symfony bundle based on the token bucket algorithm.",
   "homepage": "https://github.com/damirius/rate-limiter/",
   "keywords": ["rate limiter", "token bucket"],
   "license": "MIT",
   "type": "library",
   "require": {
     "php": ">=7.1.3",
-    "symfony/framework-bundle": "^4.0"
+    "symfony/framework-bundle": ">=4.0"
   },
   "require-dev": {
     "phpunit/phpunit": "3.7.*"
