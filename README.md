@@ -87,7 +87,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CustomController
 {
-    public function number(Request $request, RateLimiter $rateLimiter)
+    public function limited(Request $request, RateLimiter $rateLimiter)
     {
         $tries = $rateLimiter->checkAndReturn($request->getClientIp());
         if($tries == 0) {
@@ -106,6 +106,7 @@ class CustomController
 }
 ```
 As mentioned, `checkAndReturn` will return number of tries left but consumer service should decide what to do.
+Using RateLimiter directly by injecting it into Controller actions can become messy, so you can inject RateLimiter service into Event Listeners or other services which are fired on HTTP requests or wherever else you need them.
 
 There are couple more publicly exposed methods which can help managing rate limits.
 
