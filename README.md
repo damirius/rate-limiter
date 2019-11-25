@@ -3,9 +3,9 @@ This bundle lets you Rate Limit specific requests. While main usage is for limit
 It can be used in controllers but also any other services if needed. While this service gives you tools to see if given limit was reached it does not provide further logic. Consumer will have to decide what to do and implement necessary functionality.
 # Configuration
 To enable Rate Limiting for specific request, new service should be registered.
-To create a service simply add new configuration options for rate limit bundle in new `config/rate-limiter.yml` file:
+To create a service simply add new configuration options for rate limit bundle in new `config/rate_limiter.yml` file:
 ``` yaml
-# config/rate-limiter.yml
+# config/rate_limiter.yml
 damirius_rate_limiter:
     domains:
         default: # name of the domain
