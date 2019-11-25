@@ -11,13 +11,13 @@ damirius_rate_limiter:
         default: # name of the domain
             limit: 10 # Request limit
             period: 60 # Request time window in seconds
-            service: App\Service\RateLimiterStorage\YourStorageService # Storage service
+            storage_service: App\Service\RateLimiterStorage\YourStorageService # Storage service
 ```
 `limit` (`int`, default: `10`).
 
 `period` (`int`, default: `60`).
 
-`service` (service of `RateLimiterStorageInterface` type). 
+`storage_service` (service of `RateLimiterStorageInterface` type). 
 
 If you want to have different limits for different requests/parts of your code you can register multiple services with a different domains.
 Different domains don't share their limits between them.
@@ -75,6 +75,38 @@ This can be IP address if we want to limit access by IP, but it can also be anyt
 Method will make necessary steps to store our current call and return number of remaining calls in our window.
 If that number is 0 it means that this client hit the rate limit, consumer can then limit further access if needed.
 
+``` php
+<?php
+// src/Controller/CustomController.php
+namespace App\Controller;
+
+use Damirius\RateLimiter\Service\RateLimiter;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class CustomController
+{
+    public function number(Request $request, RateLimiter $rateLimiter)
+    {
+        $tries = $rateLimiter->checkAndReturn($request->getClientIp());
+        if($tries == 0) {
+
+            return new Response(null, Response::HTTP_TOO_MANY_REQUESTS);
+        }
+
+        return new Response(
+            '<html>
+                <body>
+                Number of requests left '. $tries .'
+                </body>
+            </html>'
+        );
+    }
+}
+```
+As mentioned, `checkAndReturn` will return number of tries left but consumer service should decide what to do.
+
 There are couple more publicly exposed methods which can help managing rate limits.
 
 `RateLimiter::getResetTime($identifier)` will get time in seconds till the rate limit resets for specific client identifier.
@@ -86,7 +118,7 @@ This bundle uses Token Bucket algorithm. It's enough to say that it's simple eno
 One thing that we save is time of last request and other is `allowance` which indirectly represent number of tries left.
 
 # Storage
-Storage options can be introduced by implementing `Storage\RateLimiterStorageInterface`.
+Storage options can be introduced by implementing `Damirius\RateLimiter\Storage\RateLimiterStorageInterface`.
 Storage should be quick and simple since only thing we need to store are key->value pairs.
 
 # References
