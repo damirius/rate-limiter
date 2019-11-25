@@ -1,6 +1,34 @@
 # Rate Limiter Symfony Bundle
 This bundle lets you Rate Limit specific requests. While main usage is for limiting end user access to API endpoints, this bundle gives you access to the service which can limit access to any part of the code.
 It can be used in controllers but also any other services if needed. While this service gives you tools to see if given limit was reached it does not provide further logic. Consumer will have to decide what to do and implement necessary functionality.
+
+# Installation
+
+1. Download damirius/rate-limiter using composer
+2. Enable the Bundle
+
+## Step 1: Download damirius/rate-limiter using composer
+
+Require the bundle with composer inside your symfony project:
+
+.. code-block:: bash
+
+    $ composer require damirius/rate-limiter "~1.0"
+
+Composer will install the bundle to your project's ``vendor/damirius/rate-limiter`` directory.
+
+## Step 2: Enable the bundle
+
+Enable the bundle in the `config/bundles.php`
+``` php
+// config/bundles.php
+return [
+    // ...
+    Damirius\RateLimiter\DamiriusRateLimiterBundle::class => ['all' => true],
+];
+```
+
+
 # Configuration
 To enable Rate Limiting for specific request, new service should be registered.
 To create a service simply add new configuration options for rate limit bundle in new `config/rate_limiter.yml` file:
