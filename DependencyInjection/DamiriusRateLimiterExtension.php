@@ -24,7 +24,7 @@ class DamiriusRateLimiterExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         foreach ($config['domains'] as $name => $domain) {
-            if (is_array($domain) && $name) {
+            if (is_array($domain) && $name && isset($domain['storage_service'])) {
                 $serviceDefinition = new Definition(RateLimiter::class, [$domain['limit'], $domain['period'], $name, new Reference($domain['storage_service'])]);
                 $serviceId = 'damirius_rate_limiter.limiter.'.$name;
                 $container->setDefinition($serviceId, $serviceDefinition);
