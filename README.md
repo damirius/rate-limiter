@@ -3,7 +3,7 @@ This bundle lets you Rate Limit specific requests.
 # Configuration
 To enable Rate Limiting for specific request, new service should be registered.
 To create a service simply add new configuration options for rate limit bundle in your `app/config/config.yml` file:
-```
+``` yaml
 damirius_rate_limiter:
     domains:
         default: # name of the domain
@@ -11,14 +11,18 @@ damirius_rate_limiter:
             period: 60 # Request time window in seconds
             service: App\Service\RateLimiterStorage\YourStorageService # Storage service
 ```
-First argument is request limit (`int`, default: `10`).
-Second is time window in seconds (`int`, default: `60`).
-Third is storage service (`string` id of service of type `RateLimiterStorageInterface`). 
+`limit` (`int`, default: `10`).
+
+`period` (`int`, default: `60`).
+
+`service` (service of `RateLimiterStorageInterface` type). 
+
 If you want to have different limits for different requests/parts of your code you can register multiple services with different domains.
 Different domains don't share their limits between them.
 - Note: Domains are unique per storage! Using the same domain with different storages will behave like different domains.
 
 If default configuration example was used new limiter service will be available in the service container: `damirius_rate_limiter.limiter.default`.
+
 **Name will always be `damirius_rate_limiter.limiter.DOMAINNAME` where `DOMAINNAME` is the name of the node in the configuration.**
 # Usage
 
